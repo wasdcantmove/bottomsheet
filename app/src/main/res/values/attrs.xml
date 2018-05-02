@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="Bottom_sheet">
+        <attr name="header_text" format="string" />
+        <attr name="body_text" format="string" />
+        <attr name="icon_type" format="enum">
+            <enum name="none" value="0" />
+            <enum name="error" value="1" />
+        </attr>
+    </declare-styleable>
+
+</resources>
