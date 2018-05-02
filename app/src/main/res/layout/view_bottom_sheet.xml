@@ -12,25 +12,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingTop="@dimen/spacing_large_smaller"
         android:paddingBottom="@dimen/spacing_medium_small"
         android:paddingLeft="@dimen/spacing_small"
-        android:paddingRight="@dimen/spacing_small">
+        android:paddingRight="@dimen/spacing_small"
+        android:paddingTop="@dimen/spacing_large_smaller">
 
         <TextView
             android:id="@+id/header_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textStyle="bold"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
         <ImageView
             android:id="@+id/bottom_sheet_chevron"
             android:layout_width="@dimen/spacing_medium_small"
             android:layout_height="@dimen/spacing_medium_small"
             android:layout_gravity="center_vertical|end"
-            android:rotation="90"
-            android:src="@drawable/ic_launcher_foreground"
+            android:src="@drawable/ic_action_arrow"
             android:tint="@color/black" />
 
     </LinearLayout>
@@ -40,22 +40,21 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/spacing_medium_small"
         android:paddingBottom="@dimen/spacing_large_smaller"
         android:paddingLeft="@dimen/spacing_small"
-        android:paddingRight="@dimen/spacing_small">
+        android:paddingRight="@dimen/spacing_small"
+        android:paddingTop="@dimen/spacing_medium_small">
 
         <TextView
             android:id="@+id/body_text"
-            android:linksClickable="true"
-            android:autoLink="web"
-            android:focusable="true"
-            tools:text="This is a #test of regular expressions with http://example.com/ links as used in @twitter for performing various operations based on the links this handles multiple links like http://this_is_fun.com/ and #Awesomess and @Cool"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autoLink="web"
             android:drawablePadding="@dimen/spacing_normal"
+            android:focusable="true"
+            android:linksClickable="true"
             android:textColor="@android:color/black"
-            />
+            tools:text="This is a #test of regular expressions with http://example.com/ links as used in @twitter for performing various operations based on the links this handles multiple links like http://this_is_fun.com/ and #Awesomess and @Cool" />
 
     </android.support.v4.widget.NestedScrollView>
 

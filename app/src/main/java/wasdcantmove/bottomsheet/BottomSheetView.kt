@@ -77,7 +77,7 @@ class BottomSheetView @JvmOverloads constructor(
     }
 
     fun rotateChevron(chevron: ImageView, orientation: Boolean) {
-        chevron.animate().rotation(if (orientation) -90f else 90f).start()
+        chevron.animate().rotation(if (orientation) 180f else 0f).start()
     }
 
     private fun initAttributes(array: TypedArray) {

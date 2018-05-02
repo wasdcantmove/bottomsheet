@@ -5,8 +5,8 @@ import android.support.test.rule.ActivityTestRule
 import org.junit.Rule
 
 abstract class BaseActivityTest<T : Activity>(
-        @Rule @JvmField val activityRule : ActivityTestRule<T>) : BaseUiTest<T>() {
+        @Rule @JvmField val activityRule : ActivityTestRule<T>) {
 
-    override val activity: T
+    val activity: T
         get() = activityRule.activity
 }

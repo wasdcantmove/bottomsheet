@@ -2,24 +2,21 @@ package wasdcantmove.bottomsheet
 
 import android.content.Intent
 import android.support.design.widget.BottomSheetBehavior
-import android.support.test.espresso.Espresso.onView
+import android.support.test.espresso.Espresso
 import android.support.test.espresso.action.ViewActions
-import android.support.test.espresso.action.ViewActions.click
+import android.support.test.espresso.assertion.ViewAssertions
 import android.support.test.espresso.matcher.ViewMatchers
-import android.support.test.espresso.matcher.ViewMatchers.*
+import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
+import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.filters.LargeTest
 import android.support.test.runner.AndroidJUnit4
 import android.widget.TextView
+import org.junit.Assert
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import uk.co.scottishpower.test.*
-import uk.co.scottishpower.test.spoon.BaseIntentsTest
-import uk.co.scottishpower.view.R
-import wasdcantmove.basetest.BaseIntentsTest
-import wasdcantmove.basetest.intentsTestRule
+import wasdcantmove.basetest.*
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
@@ -30,61 +27,46 @@ class BottomSheetTests : BaseIntentsTest<BottomSheetActivity>(
     @Throws(java.lang.Exception::class)
     fun launchActivity() {
         activityRule.launchActivity(Intent())
+
     }
 
     @Test
     @Throws(java.lang.Exception::class)
     fun checkBottomSheetIsDisplayed() {
-        onView(withId(R.id.bottom_sheet))
-                .check(isDisplayed())
-    }
 
-    @Test
-    @Throws(java.lang.Exception::class)
-    fun onClickShouldExpandBottomSheet() {
-        onView(withText(R.string.view_important_details))
-                .perform(click())
-
-        onView<BottomSheetView>()
-                .check<BottomSheetView> {
-                    assertEquals(BottomSheetBehavior.STATE_EXPANDED, state)
-                }
+        Espresso.onView(ViewMatchers.withId(R.id.bottom_sheet))
+                .check(ViewAssertions.matches(isDisplayed()))
     }
 
     @Test
     @Throws(java.lang.Exception::class)
     fun onBackPressedShouldCollapseBottomSheet() {
-        onView(withText(R.string.view_important_details))
-                .perform(click())
 
-        onView(ViewMatchers.isRoot())
+        Espresso.onView(ViewMatchers.withText("bottomsheet"))
+                .perform(ViewActions.click())
+
+
+        Espresso.onView(ViewMatchers.isRoot())
                 .perform(ViewActions.pressBack())
+
 
         onView<BottomSheetView>()
                 .check<BottomSheetView> {
-                    assertNotEquals(BottomSheetBehavior.STATE_EXPANDED, state)
+                    Assert.assertNotEquals(BottomSheetBehavior.STATE_EXPANDED, state)
                 }
     }
 
-    @Test
-    @Throws(java.lang.Exception::class)
-    fun onBackPressedShouldPerformBack() {
-        onView(ViewMatchers.isRoot())
-                .perform(ViewActions.pressBack())
-        onToast("Back pressed")
-                .check(isDisplayed())
-
-    }
 
     @Test
     @Throws(java.lang.Exception::class)
     fun shouldDisplayTextInHeader() {
-        onView(withText(R.string.view_important_details))
-                .perform(click())
+
+        Espresso.onView(ViewMatchers.withText("bottomsheet"))
+                .perform(ViewActions.click())
 
         onView<BottomSheetView>()
                 .perform<BottomSheetView> {
-                    headerText = HEADER_TEXT
+                    headerText = BottomSheetTests.HEADER_TEXT
                 }
                 .check<BottomSheetView> {
                     assertEquals(HEADER_TEXT, headerText)
@@ -95,8 +77,10 @@ class BottomSheetTests : BaseIntentsTest<BottomSheetActivity>(
     @Test
     @Throws(java.lang.Exception::class)
     fun shouldDisplayTextInBody() {
-        onView(withText(R.string.view_important_details))
-                .perform(click())
+
+        Espresso.onView(ViewMatchers.withText("bottomsheet"))
+                .perform(ViewActions.click())
+
 
         var string: String? = null
         onView<TextView>(withId(R.id.body_text))
@@ -117,8 +101,10 @@ class BottomSheetTests : BaseIntentsTest<BottomSheetActivity>(
     @Test
     @Throws(java.lang.Exception::class)
     fun shouldDisplayClickableTextInBody() {
-        onView(withText(R.string.view_important_details))
-                .perform(click())
+Thread.sleep(100000)
+        Espresso.onView(ViewMatchers.withText("bottomsheet"))
+                .perform(ViewActions.click())
+
 
         onView<BottomSheetView>()
                 .check<BottomSheetView> {
