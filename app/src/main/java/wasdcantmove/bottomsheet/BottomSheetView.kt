@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.support.annotation.StringRes
 import android.support.design.widget.BottomSheetBehavior
+import android.support.design.widget.BottomSheetBehavior.from
 import android.text.method.LinkMovementMethod
 import android.util.AttributeSet
 import android.view.View
@@ -76,8 +77,11 @@ class BottomSheetView @JvmOverloads constructor(
         imageView = BottomSheetType.NONE
     }
 
-    fun rotateChevron(chevron: ImageView, orientation: Boolean) {
-        chevron.animate().rotation(if (orientation) 180f else 0f).start()
+    private fun rotateChevron() {
+        when (BottomSheetBehavior.STATE_EXPANDED) {
+            from(this).state -> chevron?.animate()?.rotation(180f)?.start()
+            else -> chevron?.animate()?.rotation(0f)?.start()
+        }
     }
 
     private fun initAttributes(array: TypedArray) {
@@ -125,21 +129,8 @@ class BottomSheetView @JvmOverloads constructor(
 
             setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
 
-                var oldState: Int = state
-
                 override fun onStateChanged(bottomSheet: View, newState: Int) {
-                    when (newState) {
-                        BottomSheetBehavior.STATE_EXPANDED -> true
-                        BottomSheetBehavior.STATE_COLLAPSED -> false
-                        else -> when (oldState) {
-                            BottomSheetBehavior.STATE_EXPANDED -> false
-                            BottomSheetBehavior.STATE_COLLAPSED -> true
-                            else -> null
-                        }
-                    }?.let { orientation ->
-                        chevron?.let { rotateChevron(it, orientation) }
-                    }
-                    oldState = newState
+                    rotateChevron()
                 }
 
                 override fun onSlide(bottomSheet: View, slideOffset: Float) = Unit
